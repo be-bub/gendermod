@@ -3,7 +3,7 @@ loaderVersion="[47,)"
 license="MIT"
 
 [[mods]]
-modId="bub_addition"
+modId="gendermod"
 version="1.0.0"
 displayName="Gender Mod"
 description='''
