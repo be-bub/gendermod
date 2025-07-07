@@ -1,0 +1,15 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="bub_addition"
+version="1.0.0"
+displayName="Gender Mod"
+description='''
+Adds realistic gender mechanics to Minecraft mobs.
+Animals now have genders that affect breeding and interactions.
+Use a stick to check an animal's gender.
+Configure which mobs have genders and interaction rules in the config file.
+'''
+authors="be_bub"

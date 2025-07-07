@@ -1,0 +1,6 @@
+{
+  "gendermod.gender": "Пол",
+  "gendermod.gender.male": "Самец",
+  "gendermod.gender.female": "Самка",
+  "gendermod.message.gender": "Пол: %s"
+} 
