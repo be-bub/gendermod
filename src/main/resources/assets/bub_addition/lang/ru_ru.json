@@ -1,0 +1,8 @@
+{
+    "item.bub_addition.magnifying_glass": "Увеличительное стекло",
+    
+    "gendermod.gender.male": "Самец",
+    "gendermod.gender.female": "Самка",
+    "gendermod.gender.sterile.male": "§7Бесплодный %s§r",
+    "gendermod.gender.sterile.female": "§7Бесплодная %s§r"
+}

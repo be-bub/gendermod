@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="bub_addition"
+version="1.0.0"
+displayURL="https://modrinth.com/project/gendermod"
+displayName="Gender Mod"
+logoFile="gendermod_logo.png"
+credits=""
+authors="bebub"
+description='''
+Adds genders to animals.
+'''
+
+[[dependencies.bub_addition]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.bub_addition]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1,1.21)"
+    ordering="NONE"
+    side="BOTH"
