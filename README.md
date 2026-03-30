@@ -1,95 +1,80 @@
 [![Download](https://img.shields.io/badge/Download-CurseForge-orange?style=for-the-badge&logo=curseforge)](https://legacy.curseforge.com/minecraft/mc-mods/genderbub)
 [![Download](https://img.shields.io/badge/Download-Modrinth-green?style=for-the-badge&logo=modrinth)](https://modrinth.com/mod/genderbub)
+[![Showcase](https://img.shields.io/badge/Showcase-YouTube-red?style=for-the-badge&logo=youtube)](https://youtu.be/x_alKNh-bEg)
 
-# ⚠️ Important
-**Before adding this mod to your modpack or world, make sure to create a backup of your world. This is a simple precaution for any unforeseen situations.**
+# Important
 
-**I added genders and same-gender breeding restrictions just for fun and a bit of realism. Not trying to offend anyone or make any statements. It's just for gameplay variety.**
+1. **This mod adds genders and breeding restrictions for gameplay variety and a bit of realism. Not trying to offend anyone or make any statements.**
 
-**If you add a new mob to enabledMobs in the config, you need to run /gendermod reload, then leave the chunk and come back (or restart the game) for the changes to take effect.**
-# Gender Mod
-### Gender Assignment
-- Male – default chance 45%
-- Female – default chance 45%
-- Sterile – default chance 10% (remaining percentage)
+2. **Warning:** Before adding this mod to your world, make a backup. When adding new mobs to `enabledMobs` in the config, run `/genderbub reload`, then leave the chunk and come back (or restart the game) for changes to take effect.
 
-Sterile animals cannot breed. If you try to breed two animals of the same gender or if one of them is sterile, breeding will fail and angry particles will appear.
+## Magnifying Glass
 
-### Magnifying Glass
-The mod adds a magnifying glass (found in the Tools & Utilities).
+**The mod adds a magnifying glass (found in the Tools & Utilities tab).**
 
-- Right-click animal with magnifying glass in any hand – shows gender + sterile status.
-- In offhand – shows icons (♂ / ♀) above scanned animals within radius.
-- In main hand – shows icon only when aiming at a scanned mob.
+- **Right-click animal with magnifying glass in any hand – shows gender + sterile status.**
+- **In offhand – shows icons above scanned animals within radius.**
+- **In main hand – shows icon only when aiming at a scanned mob.**
 
-### Config File
-Config file location: config/bebub/gendermod.json (auto-generated)
+![lupa](https://cdn.modrinth.com/data/cached_images/a452afc9d215d65a87f3958b285f69ea9341c8b8.png)
 
-```
-{
-  "settings": {
-    "maleChance": 45,
-    "femaleChance": 45,
-    "displayRadius": 24,
-    "enabledMobs": [
-      "minecraft:cow",
-      "minecraft:sheep",
-      "minecraft:pig",
-      "minecraft:chicken"
-      ...
-    ]
-  },
-  "mobs": [
-    {
-      "mobId": "minecraft:cow",
-      "rules": [
-        { "gender": "male", "itemId": "minecraft:bucket" },
-        { "gender": "male", "itemId": "#forge:buckets" },
-        { "gender": "sterile", "itemId": "minecraft:bucket" },
-        { "gender": "sterile", "itemId": "#forge:buckets" }
-      ]
-    }
-  ]
-}
-```
+---
+
+## Config File
+
+Config file location: `config/bebub/genderbub.json`
+
 ### Settings
-- maleChance – chance for male gender in % (default 45)
-- femaleChance – chance for female gender in % (default 45)
-- displayRadius – radius for displaying icons (default 24)
-- enabledMobs – list of mobs affected by the mod. You can add any animal by its ID
+
+- `maleChance` – chance for male gender in % (default 45)
+- `femaleChance` – chance for female gender in % (default 45)
+- `displayRadius` – radius for displaying icons in blocks (default 24)
+- `allowMaleMaleBreed` – allow male + male breeding (default false)
+- `allowFemaleFemaleBreed` – allow female + female breeding (default false)
+- `allowSterileBreed` – allow sterile animals to breed (default false)
+- `enabledMobs` – list of mobs affected by the mod. You can add any mob by its ID
+
+**Note:** Sterile chance is calculated automatically from the remaining percentage: `100% - maleChance - femaleChance`. By default male 45% + female 45% = 10% sterile. If you set male 50% and female 50%, sterile chance becomes 0%. Maximum value for male and female is 50% each. If you enter a higher value, it will be automatically reduced to 50%.
+
+### Villager Settings
+
+- `enabled` – enable gender system for villagers (default true)
+- `maleChance` – chance for male villager in % (default 47)
+- `femaleChance` – chance for female villager in % (default 47)
+- `enabledVillagers` – list of villager types affected (default ["minecraft:villager"])
 
 ### Interaction Rules
+
 Blocks certain interactions with mobs based on gender.
 
-- gender – which gender the rule applies to ("male", "female", "sterile")
-- itemId – blocked item (e.g., "minecraft:bucket" or tag with #, like "#forge:buckets")
+- `gender` – which gender the rule applies to ("male", "female", "sterile")
+- `itemIds` – list of blocked items (e.g., ["minecraft:bucket", "mod:item"])
 
-### Commands
-/gendermod reload – reloads the config without restarting the game (requires OP permissions)
+### Action Rules
 
-### Note
-The mod only works with animals (the Animal class). Villagers, monsters, and other entities do not have genders and are not affected.
+Blocks certain actions (egg laying, milk production, etc.).
 
-# 🚀 Future of the Mod
-This mod was originally made for playing with friends, so the chances of me actively developing it are not high. However, there are a few ideas I'd like to implement if I have the time and motivation:
+- `mobId` – entity ID
+- `gender` – gender to block ("male", "female", "sterile")
+- `action` – action to block ("lay_egg", "produce_milk", "grow_wool")
+- `itemIds` – list of items that trigger the block
+- `blocked` – true to block, false to allow
 
-- Different sizes for each gender – males will be larger, females smaller
-- Model variations based on gender – for example, male roosters will have long tails
-- Different textures – ability to set separate textures for male and female
+---
 
-# ❓ FAQ
+## Commands
+
+- `/genderbub reload` – reloads the config without restarting the game (requires OP permissions)
+- `/genderbub reset` – resets config to default values (requires OP permissions)
+
+---
+
+# FAQ
+
 ### Will there be a port to Fabric / NeoForge / other versions?
+
 Not for now. The mod is made for Forge 1.20.1. If the mod becomes popular and I have the opportunity, I will try to port it to other loaders and versions.
 
 ### Can I use this mod in my modpack?
+
 Yes, you can freely use this mod in any modpack. The only thing – if you have modded animals in your pack, you will need to add them manually to the config (enabledMobs), otherwise they will not receive genders.
-
-# 📜 License
-This mod is distributed under the MIT License.
-
-You can:
-Use the mod in any modpack
-Modify the code for your own needs
-Publish modified versions
-
-This mod was written with the help of artificial intelligence. I came up with the idea, but the code was generated by AI. Therefore, I don't think it's right to close the source code or restrict its use.
