@@ -34,14 +34,9 @@ Config file location: `config/bebub/genderbub.json`
 - `allowSterileBreed` – allow sterile animals to breed (default false)
 - `enabledMobs` – list of mobs affected by the mod. You can add any mob by its ID
 
-**Note:** Sterile chance is calculated automatically from the remaining percentage: `100% - maleChance - femaleChance`. By default male 45% + female 45% = 10% sterile. If you set male 50% and female 50%, sterile chance becomes 0%. Maximum value for male and female is 50% each. If you enter a higher value, it will be automatically reduced to 50%.
+**Note:** The mod only works for animals that can breed (entities that extend Animal class). If a mob doesn't get a gender assigned, it means it's not an animal and is not supported by the mod.
 
-### Villager Settings
-
-- `enabled` – enable gender system for villagers (default true)
-- `maleChance` – chance for male villager in % (default 47)
-- `femaleChance` – chance for female villager in % (default 47)
-- `enabledVillagers` – list of villager types affected (default ["minecraft:villager"])
+Sterile chance is calculated automatically from the remaining percentage: 100% - maleChance - femaleChance. By default male 45% + female 45% = 10% sterile. If you set male 50% and female 50%, sterile chance becomes 0%. Maximum value for male and female is 50% each. If you enter a higher value, it will be automatically reduced to 50%.
 
 ### Interaction Rules
 
