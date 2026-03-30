@@ -1,0 +1,11 @@
+{
+    "item.genderbub.magnifying_glass": "Увеличительное стекло",
+    "genderbub.gender.male": "♂ Самец",
+    "genderbub.gender.female": "♀ Самка",
+    "genderbub.gender.sterile.male": "§7Бесплодный ♂ Самец§r",
+    "genderbub.gender.sterile.female": "§7Бесплодная ♀ Самка§r",
+    "genderbub.villager.male": "♂ Мужчина",
+    "genderbub.villager.female": "♀ Женщина",
+    "genderbub.villager.boy": "♂ Мальчик",
+    "genderbub.villager.girl": "♀ Девочка"
+}
