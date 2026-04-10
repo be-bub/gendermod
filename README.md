@@ -1,0 +1,3 @@
+[![Download](https://img.shields.io/badge/Download-CurseForge-orange?style=for-the-badge&logo=curseforge)](https://curseforge.com/minecraft/mc-mods/genderbub)
+[![Download](https://img.shields.io/badge/Download-Modrinth-green?style=for-the-badge&logo=modrinth)](https://modrinth.com/mod/genderbub)
+[![Showcase](https://img.shields.io/badge/Showcase-YouTube-red?style=for-the-badge&logo=youtube)](https://youtu.be/x_alKNh-bEg)
