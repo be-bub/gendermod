@@ -5,7 +5,7 @@ plugins {
     id 'org.spongepowered.mixin' version '0.7.+'
 }
 
-version = '1.0.4'
+version = '1.0.5'
 group = 'com.bebub.genderbub'
 archivesBaseName = 'genderbub'
 
@@ -47,11 +47,20 @@ mixin {
 
 repositories {
     mavenCentral()
+    maven {
+        name "CurseMaven"
+        url "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.4.10'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    
+    compileOnly fg.deobf("curse.maven:jade-324717:6855440")
 }
 
 jar {
