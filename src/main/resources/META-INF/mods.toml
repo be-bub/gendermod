@@ -4,7 +4,7 @@ license="MIT"
 
 [[mods]]
 modId="genderbub"
-version="1.0.5"
+version="${version}"
 displayURL="https://github.com/be-bub/genderbub"
 displayName="Gender Bub"
 logoFile="genderbub_logo.png"
