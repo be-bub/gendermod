@@ -53,10 +53,13 @@ public class ClientGenderHandler {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null) return;
         
-        ItemStack offhand = mc.player.getOffhandItem();
-        boolean isScannerOffhand = isScannerItem(offhand);
+        ItemStack mainHand = mc.player.getMainHandItem();
+        ItemStack offHand = mc.player.getOffhandItem();
         
-        if (!isScannerOffhand) return;
+        boolean isScannerInMainHand = isScannerItem(mainHand);
+        boolean isScannerInOffHand = isScannerItem(offHand);
+        
+        if (!isScannerInMainHand && !isScannerInOffHand) return;
         
         boolean isLookingAt = false;
         if (mc.hitResult instanceof EntityHitResult) {
@@ -68,28 +71,25 @@ public class ClientGenderHandler {
         
         boolean showIcon = false;
         
-        if (isJadeLoaded) {
-            if (!isLookingAt) {
-                int maxDistance = GenderConfig.getDisplayRadius();
-                if (maxDistance > 0) {
-                    if (maxDistance > 256) maxDistance = 256;
-                    double distance = mc.player.distanceTo(living);
-                    if (distance <= maxDistance) {
-                        showIcon = true;
-                    }
+        if (isScannerInOffHand) {
+            int maxDistance = GenderConfig.getDisplayRadius();
+            if (maxDistance > 256) maxDistance = 256;
+            if (maxDistance < 0) maxDistance = 0;
+            
+            if (maxDistance == 0) {
+                if (isLookingAt) {
+                    showIcon = true;
+                }
+            } else {
+                double distance = mc.player.distanceTo(living);
+                if (distance <= maxDistance) {
+                    showIcon = true;
                 }
             }
-        } else {
-            if (isLookingAt) {
-                showIcon = true;
-            } else {
-                int maxDistance = GenderConfig.getDisplayRadius();
-                if (maxDistance > 0) {
-                    if (maxDistance > 256) maxDistance = 256;
-                    double distance = mc.player.distanceTo(living);
-                    if (distance <= maxDistance) {
-                        showIcon = true;
-                    }
+        } else if (isScannerInMainHand) {
+            if (!isJadeLoaded) {
+                if (isLookingAt) {
+                    showIcon = true;
                 }
             }
         }
