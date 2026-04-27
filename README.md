@@ -1,12 +1,12 @@
 # Gender BUB
 
-- **Random gender** — each mob spawns as male or female with configurable chances (0-50% each)
-- **Sterility system** — mobs can be infertile, preventing them from breeding
-- **Visual icons** — gender icons appear above mobs when holding the magnifying glass
-- **Interaction blocking** — prevent specific items on certain genders (e.g., stop male cows from being milked)
-- **Breeding control** — restrict same-gender breeding, disable sterile mobs from breeding, or allow everything
-- **Villager support** — with option to keep gender when curing zombie villagers
+*   **Random gender** — male or female on spawn with configurable chance (0-50% each)
+*   **Sterility** — infertile mobs can't breed, chance auto-calculated from gender settings
+*   **Visual icons** — gender icon above mobs and HUD when holding scanner
+*   **Breeding control** — block same-gender breeding, disable sterile breeding, or allow all
+*   **Item restrictions** — prevent specific items on certain genders (e.g., milking male cows)
+*   **Villager support** — villagers get genders, preserved when curing zombie villagers
+*   **Modded mob support** — auto-scan or manually add any modded animal to config
 
 [![Download](https://img.shields.io/badge/Download-CurseForge-orange?style=for-the-badge&logo=curseforge)](https://curseforge.com/minecraft/mc-mods/genderbub)
 [![Download](https://img.shields.io/badge/Download-Modrinth-green?style=for-the-badge&logo=modrinth)](https://modrinth.com/mod/genderbub)
-[![Video Showcase](https://img.shields.io/badge/Video-Showcase-red?style=for-the-badge&logo=youtube)](https://youtu.be/kESNGcOZ8cc)
