@@ -52,6 +52,8 @@ public class RenderMixin {
         String gender = GenderCore.getGender(living);
         if (gender.equals("none") || gender.startsWith("cached_")) return;
         
+        if (gender.equals("baby")) return;
+        
         ResourceLocation icon = gender.equals("male") ? MALE_ICON : FEMALE_ICON;
         int color = GenderDisplayUtil.getColor(living);
         

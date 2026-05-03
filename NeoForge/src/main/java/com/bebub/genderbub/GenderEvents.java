@@ -88,29 +88,8 @@ public class GenderEvents {
     }
 
     @SubscribeEvent
-    public static void onScannerInteract(PlayerInteractEvent.EntityInteractSpecific event) {
-        if (!(event.getTarget() instanceof LivingEntity entity)) return;
-        if (!(event.getEntity() instanceof ServerPlayer player)) return;
-
-        ItemStack stack = event.getItemStack();
-        if (stack.isEmpty()) return;
-        if (!GenderConfig.isScannerItem(stack.getItem())) return;
-
-        event.setCanceled(true);
-        event.setCancellationResult(InteractionResult.SUCCESS);
-
-        onEntityJoinWorld(new EntityJoinLevelEvent(entity, entity.level()));
-    }
-
-    @SubscribeEvent
     public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
         if (!(event.getTarget() instanceof LivingEntity entity)) return;
-        
-        if (GenderConfig.isScannerItem(event.getItemStack().getItem())) {
-            event.setCanceled(true);
-            event.setCancellationResult(InteractionResult.SUCCESS);
-            return;
-        }
         
         if (shouldCancelInteraction(entity, event.getItemStack())) {
             event.setCanceled(true);
@@ -125,11 +104,6 @@ public class GenderEvents {
 
         ItemStack held = event.getItemStack();
         if (held.isEmpty()) return;
-        if (GenderConfig.isScannerItem(held.getItem())) {
-            event.setCanceled(true);
-            event.setCancellationResult(InteractionResult.SUCCESS);
-            return;
-        }
 
         if (shouldCancelInteraction(entity, held)) {
             event.setCanceled(true);
