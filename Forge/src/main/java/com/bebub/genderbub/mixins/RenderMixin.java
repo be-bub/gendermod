@@ -43,6 +43,8 @@ public class RenderMixin {
 
         String gender = GenderCore.getGender(living);
         if (gender.equals("none") || gender.startsWith("cached_")) return;
+        
+        if (gender.equals("baby")) return;
 
         String symbol = gender.equals("male") ? "♂" : "♀";
         int color = GenderDisplayUtil.getColor(living);
