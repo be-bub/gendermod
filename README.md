@@ -14,4 +14,4 @@
 [![Showcase](https://img.shields.io/badge/Showcase-1A1C20?style=for-the-badge&logo=youtube&logoColor=FF0000)](https://youtu.be/lF4euVOg3-k)
 [![Mod Documentation](https://img.shields.io/badge/Mod_Documentation-1A1C20?style=for-the-badge&logo=github&logoColor=FFFFFF)](https://github.com/be-bub/genderbub/wiki/Mod)
 [![Resource Pack Documentation](https://img.shields.io/badge/Resource_Pack_Documentation-1A1C20?style=for-the-badge&logo=github&logoColor=FFFFFF)](https://github.com/be-bub/genderbub/wiki/Resource-Pack)
-[![Compatibility](https://img.shields.io/badge/Compatibility-1A1C20?style=for-the-badge&logo=github&logoColor=FFFFFF)](https://github.com/be-bub/genderbub/wiki/Integration)
+[![Compatibility](https://img.shields.io/badge/Compatibility-1A1C20?style=for-the-badge&logo=github&logoColor=FFFFFF)](https://github.com/be-bub/genderbub/wiki/Compatibility)
