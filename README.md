@@ -2,6 +2,7 @@
 
 [![CurseForge](https://img.shields.io/curseforge/dt/1497835?style=for-the-badge&logo=curseforge&logoColor=F16436&label=CurseForge&labelColor=1A1C20&color=2f353d)](https://curseforge.com/minecraft/mc-mods/genderbub)
 [![Modrinth](https://img.shields.io/modrinth/dt/genderbub?style=for-the-badge&logo=modrinth&logoColor=00AF5C&label=Modrinth&labelColor=1A1C20&color=2f353d)](https://modrinth.com/mod/genderbub)
+[![Config Editor](https://img.shields.io/badge/Config_Editor-1A1C20?style=for-the-badge&logo=github&logoColor=FFFFFF)](https://be-bub.github.io/genderbub/)
 
 - **Random gender:** male or female on spawn with configurable chance (0-50% each)
 - **Sterility:** infertile mobs can't breed, chance auto-calculated from gender settings
