@@ -562,8 +562,25 @@
             padding: 4px 8px;
             border-radius: 6px;
             font-size: 0.75rem;
-            cursor: pointer;
             transition: 0.2s;
+        }
+
+        .item-tag .item-text {
+            cursor: pointer;
+        }
+
+        .item-tag .item-text:hover {
+            text-decoration: underline;
+        }
+
+        .item-tag .item-delete {
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 4px;
+        }
+
+        .item-tag .item-delete:hover {
+            color: #f85149;
         }
 
         body.light .item-tag {
@@ -572,9 +589,8 @@
             color: #1f2328;
         }
 
-        body.light .item-tag:hover {
-            background: #fff0f0;
-            border-color: #d1242f;
+        body.light .item-tag .item-delete:hover {
+            color: #d1242f;
         }
 
         body.dark .item-tag {
@@ -583,10 +599,8 @@
             color: #c9d1d9;
         }
 
-        body.dark .item-tag:hover {
-            background: #da3633;
-            border-color: #f85149;
-            color: #ffffff;
+        body.dark .item-tag .item-delete:hover {
+            color: #f85149;
         }
 
         .add-item-btn {
@@ -1152,7 +1166,7 @@
                         <label><input type="checkbox" ${rule.genders?.includes('any') ? 'checked' : ''} onchange="updateRuleGender(${idx}, 'any', this.checked)"> any</label>
                     </div>
                     <div class="rule-items" id="rule-items-${idx}">
-                        ${renderItemTags(rule.items || [], idx)}
+                        ${renderItemTags(rule.itemIds || [], idx)}
                         <button class="add-item-btn" onclick="addItemToRule(${idx})">+ add item</button>
                     </div>
                 </div>
@@ -1164,31 +1178,51 @@
                 return '<span style="font-size: 0.7rem; opacity: 0.6;">no items</span>';
             }
             return items.map((item, itemIdx) => `
-                <span class="item-tag" onclick="removeItemFromRule(${ruleIdx}, ${itemIdx})" title="click to remove">${escapeHtml(item)} ✕</span>
+                <span class="item-tag">
+                    <span class="item-text" onclick="editItemInRule(${ruleIdx}, ${itemIdx})">${escapeHtml(item)}</span>
+                    <span class="item-delete" onclick="removeItemFromRule(${ruleIdx}, ${itemIdx})">✕</span>
+                </span>
             `).join('');
+        }
+
+        function editItemInRule(ruleIdx, itemIdx) {
+            if (!currentConfig.interactions[ruleIdx]) return;
+            if (!currentConfig.interactions[ruleIdx].itemIds) return;
+            const currentItem = currentConfig.interactions[ruleIdx].itemIds[itemIdx];
+            const newItem = prompt('edit item id (example: modname:itemname or #modname:tag):', currentItem);
+            if (newItem && newItem !== currentItem) {
+                currentConfig.interactions[ruleIdx].itemIds[itemIdx] = newItem;
+                renderRules();
+                renderJson(currentConfig);
+                showStatus('item updated', true);
+            }
+        }
+
+        function removeItemFromRule(ruleIdx, itemIdx) {
+            if (!currentConfig.interactions[ruleIdx]) return;
+            if (!currentConfig.interactions[ruleIdx].itemIds) return;
+            currentConfig.interactions[ruleIdx].itemIds.splice(itemIdx, 1);
+            renderRules();
+            renderJson(currentConfig);
+            showStatus('item removed', true);
         }
 
         function addItemToRule(ruleIdx) {
             const itemId = prompt('enter item id (example: modname:itemname or #modname:tag):');
             if (!itemId) return;
             if (!currentConfig.interactions[ruleIdx]) return;
-            if (!currentConfig.interactions[ruleIdx].items) currentConfig.interactions[ruleIdx].items = [];
-            currentConfig.interactions[ruleIdx].items.push(itemId);
+            if (!currentConfig.interactions[ruleIdx].itemIds) currentConfig.interactions[ruleIdx].itemIds = [];
+            currentConfig.interactions[ruleIdx].itemIds.push(itemId);
             renderRules();
             renderJson(currentConfig);
-        }
-
-        function removeItemFromRule(ruleIdx, itemIdx) {
-            if (!currentConfig.interactions[ruleIdx]) return;
-            if (!currentConfig.interactions[ruleIdx].items) return;
-            currentConfig.interactions[ruleIdx].items.splice(itemIdx, 1);
-            renderRules();
-            renderJson(currentConfig);
+            showStatus('item added: ' + itemId, true);
         }
 
         function updateRule(idx, field, value) {
             if (!currentConfig.interactions[idx]) return;
-            currentConfig.interactions[idx][field] = value;
+            if (field === 'mobId') {
+                currentConfig.interactions[idx].mobId = value;
+            }
             renderJson(currentConfig);
         }
 
@@ -1216,7 +1250,7 @@
             currentConfig.interactions.push({
                 mobId: "modname:mobname",
                 genders: ["male", "sterile"],
-                items: ["modname:itemname"]
+                itemIds: ["modname:itemname"]
             });
             renderRules();
             renderJson(currentConfig);
