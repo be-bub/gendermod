@@ -20,10 +20,43 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 @EventBusSubscriber(modid = GenderMod.MOD_ID)
 public class GenderEvents {
 
+    private static boolean isMCAVillager(LivingEntity entity) {
+        ResourceLocation id = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
+        if (id == null) return false;
+        String str = id.toString();
+        return str.equals("mca:male_villager") || str.equals("mca:female_villager") ||
+               str.equals("mca:male_zombie_villager") || str.equals("mca:female_zombie_villager");
+    }
+
+    private static String getMCAGender(LivingEntity entity) {
+        ResourceLocation id = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
+        if (id == null) return null;
+        String str = id.toString();
+        if (str.equals("mca:male_villager") || str.equals("mca:male_zombie_villager")) return "male";
+        if (str.equals("mca:female_villager") || str.equals("mca:female_zombie_villager")) return "female";
+        return null;
+    }
+
     @SubscribeEvent
     public static void onEntityJoinWorld(EntityJoinLevelEvent event) {
         if (!(event.getEntity() instanceof LivingEntity entity)) return;
         if (entity.level().isClientSide()) return;
+
+        if (isMCAVillager(entity)) {
+            if (GenderConfig.isEnableVillagers()) {
+                String gender = getMCAGender(entity);
+                if (gender != null && GenderCore.getGender(entity).equals("none")) {
+                    GenderCore.setGender(entity, gender);
+                    GenderCore.setSterile(entity, false);
+                }
+            } else {
+                String current = GenderCore.getGender(entity);
+                if (!current.equals("none") && !current.startsWith("cached_")) {
+                    GenderCore.setGender(entity, "cached_" + current);
+                }
+            }
+            return;
+        }
 
         if (GenderAddon.isIceFireDragon(entity)) {
             String correct = GenderAddon.getIceFireDragonGender(entity);
@@ -34,8 +67,22 @@ public class GenderEvents {
             return;
         }
 
-        if (entity instanceof Villager || entity instanceof ZombieVillager) {
-            if (GenderConfig.isEnableVillagers() && GenderCore.getGender(entity).equals("none")) {
+        if (entity instanceof ZombieVillager) {
+            if (GenderConfig.isEnableVillagers()) {
+                if (GenderCore.getGender(entity).equals("none")) {
+                    String[] res = GenderConfig.getRandomGenderWithSterile();
+                    if (!res[0].equals("none")) {
+                        GenderCore.setGender(entity, res[0]);
+                        GenderCore.setSterile(entity, Boolean.parseBoolean(res[1]));
+                    }
+                }
+            }
+            return;
+        }
+
+        if (entity instanceof Villager) {
+            if (!GenderConfig.isEnableVillagers()) return;
+            if (GenderCore.getGender(entity).equals("none")) {
                 String[] res = GenderConfig.getRandomGenderWithSterile();
                 if (!res[0].equals("none")) {
                     GenderCore.setGender(entity, res[0]);
@@ -112,7 +159,7 @@ public class GenderEvents {
         }
 
         boolean animal = entity instanceof Animal;
-        boolean villager = entity instanceof Villager || entity instanceof ZombieVillager;
+        boolean villager = (entity instanceof Villager || entity instanceof ZombieVillager) && !isMCAVillager(entity);
         boolean external = GenderAddon.isExternalMob(entity);
         if (!animal && !villager && !external) return;
         if (villager && !GenderConfig.isEnableVillagers()) return;
@@ -127,6 +174,23 @@ public class GenderEvents {
     public static void onBabySpawn(BabyEntitySpawnEvent event) {
         if (event.getChild() == null) return;
         if (event.getChild().level().isClientSide()) return;
+
+        if (isMCAVillager(event.getChild())) {
+            if (GenderConfig.isEnableVillagers()) {
+                String gender = getMCAGender(event.getChild());
+                if (gender != null && GenderCore.getGender(event.getChild()).equals("none")) {
+                    GenderCore.setGender(event.getChild(), gender);
+                    GenderCore.setSterile(event.getChild(), false);
+                }
+            } else {
+                String current = GenderCore.getGender(event.getChild());
+                if (!current.equals("none") && !current.startsWith("cached_")) {
+                    GenderCore.setGender(event.getChild(), "cached_" + current);
+                }
+            }
+            return;
+        }
+
         if (GenderAddon.isExternalMob(event.getChild())) return;
 
         ResourceLocation id = BuiltInRegistries.ENTITY_TYPE.getKey(event.getChild().getType());
@@ -146,7 +210,7 @@ public class GenderEvents {
 
     private static boolean shouldCancelInteraction(LivingEntity entity, ItemStack stack) {
         boolean animal = entity instanceof Animal;
-        boolean villager = entity instanceof Villager || entity instanceof ZombieVillager;
+        boolean villager = (entity instanceof Villager || entity instanceof ZombieVillager) && !isMCAVillager(entity);
         boolean external = GenderAddon.isExternalMob(entity);
         if (!animal && !villager && !external) return false;
         if (villager && !GenderConfig.isEnableVillagers()) return false;
